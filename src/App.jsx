@@ -221,11 +221,6 @@ export default function App() {
             ))}
           </div>
 
-          <div className="jv-svc-grid-bottom">
-            <Reveal delay={0}><div className="jv-svc-img-card"><img src={JV.images.patio2} alt=""/><span>Patio · 2024</span></div></Reveal>
-            <Reveal delay={100}><div className="jv-svc-img-card"><img src={JV.images.stone1} alt=""/><span>Stonework · 2025</span></div></Reveal>
-            <Reveal delay={200}><div className="jv-svc-img-card"><img src={JV.images.fire} alt=""/><span>Fire pit · 2025</span></div></Reveal>
-          </div>
         </div>
       </section>
 

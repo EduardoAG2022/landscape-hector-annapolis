@@ -64,7 +64,7 @@ const JV = {
     wall1:      "https://images.unsplash.com/photo-1591389703635-e15a07b842d7?w=1200&q=80",
     fire:       "https://images.unsplash.com/photo-1604578762246-41134e37f9cc?w=1200&q=80",
     walkway:    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200&q=80",
-    worker:     "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&q=80",
+    worker:     "/images/equipo.png",
     texture:    "https://images.unsplash.com/photo-1604147495798-57beb5d6af73?w=1600&q=80",
     beforeAfter: [
       {
@@ -74,8 +74,8 @@ const JV = {
         labelEs: "Patio trasero en Annapolis · 1,200 pies² de adoquín + fogata",
       },
       {
-        before:  "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1400&q=80",
-        after:   "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=80",
+        before:  "/images/before2.png",
+        after:   "/images/after2.jpeg",
         labelEn: "Severna Park · Front yard hardscape transformation",
         labelEs: "Severna Park · Transformación del jardín frontal",
       },
