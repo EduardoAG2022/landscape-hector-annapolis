@@ -68,8 +68,8 @@ const JV = {
     texture:    "https://images.unsplash.com/photo-1604147495798-57beb5d6af73?w=1600&q=80",
     beforeAfter: [
       {
-        before:  "https://images.unsplash.com/photo-1598902108854-10e335adac99?w=1400&q=80",
-        after:   "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1400&q=80",
+        before:  "/images/before1.png",
+        after:   "/images/after1.jpeg",
         labelEn: "Annapolis backyard · 1,200 sq ft paver patio + fire pit",
         labelEs: "Patio trasero en Annapolis · 1,200 pies² de adoquín + fogata",
       },
