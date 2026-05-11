@@ -6,7 +6,7 @@ export default {
       colors: {
         paper:  { DEFAULT: '#efe8d8', 2: '#e6dcc4', 3: '#d9cdb0' },
         stone:  { DEFAULT: '#1f1d1a', 2: '#2d2a25' },
-        ember:  { DEFAULT: '#c8553d', 2: '#de6c52', 3: '#9a3d28' },
+        ember:  { DEFAULT: '#3e7d52', 2: '#52a36a', 3: '#2c5c3a' },
         moss:   '#5d5b3e',
       },
       fontFamily: {

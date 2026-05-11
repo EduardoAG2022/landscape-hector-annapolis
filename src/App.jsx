@@ -4,7 +4,6 @@ import Reveal from './components/Reveal'
 import Parallax from './components/Parallax'
 import LangToggle from './components/LangToggle'
 import BeforeAfter from './components/BeforeAfter'
-import PriceCalculator from './components/PriceCalculator'
 import ServiceAreaMap from './components/ServiceAreaMap'
 import MultiStepForm from './components/MultiStepForm'
 import StickyMobileCTA from './components/StickyMobileCTA'
@@ -131,16 +130,12 @@ export default function App() {
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
                     </span>
                   </button>
-                  <a className="jv-btn jv-btn-ghost" href={`https://wa.me/${JV.business.whatsapp}`} target="_blank" rel="noopener noreferrer">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.464 3.488"/></svg>
-                    {t.hero.cta2}
-                  </a>
                 </div>
               </Reveal>
               <Reveal delay={500}>
                 <div className="jv-hero-index">
                   <div className="jv-hero-index-item"><small>{lang === 'en' ? 'Year founded' : 'Fundada'}</small><strong><em>2004</em></strong></div>
-                  <div className="jv-hero-index-item"><small>{lang === 'en' ? 'Reviews · ★' : 'Reseñas · ★'}</small><strong><em>4.9</em></strong></div>
+                  <div className="jv-hero-index-item"><small>{lang === 'en' ? 'Reviews · ★' : 'Reseñas · ★'}</small><strong><em>5.0</em></strong></div>
                   <div className="jv-hero-index-item"><small>{lang === 'en' ? 'Projects done' : 'Proyectos'}</small><strong><em>850+</em></strong></div>
                 </div>
               </Reveal>
@@ -217,7 +212,6 @@ export default function App() {
                   <div><h3 className="jv-svc-name">{s.name}</h3></div>
                   <div className="jv-svc-desc">{s.desc}</div>
                   <div className="jv-svc-meta">
-                    <span className="jv-svc-price-num">${s.price.min}+</span>
                     <div className="jv-svc-arrow">
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
                     </div>
@@ -262,6 +256,39 @@ export default function App() {
         </div>
       </section>
 
+      {/* GALLERY */}
+      <section className="jv-section jv-gallery-wrap">
+        <div className="jv-container">
+          <div className="jv-section-head">
+            <Reveal><div className="jv-eyebrow">{lang === 'en' ? 'Project Gallery' : 'Galería de Proyectos'}</div></Reveal>
+            <Reveal delay={100}>
+              <h2 className="jv-h2" dangerouslySetInnerHTML={{
+                __html: lang === 'en'
+                  ? 'Every project.<br/><em>Built to last.</em>'
+                  : 'Cada proyecto.<br/><em>Construido para durar.</em>'
+              }}/>
+            </Reveal>
+          </div>
+          <div className="jv-gallery-grid">
+            {[
+              { src: JV.images.patio1,     label: lang === 'en' ? 'Patio · Annapolis'       : 'Patio · Annapolis'      },
+              { src: JV.images.patio2,     label: lang === 'en' ? 'Patio · Severna Park'    : 'Patio · Severna Park'   },
+              { src: JV.images.stone1,     label: lang === 'en' ? 'Stonework · Edgewater'   : 'Piedra · Edgewater'     },
+              { src: JV.images.stone2,     label: lang === 'en' ? 'Stone Wall · Bowie'      : 'Muro · Bowie'           },
+              { src: JV.images.landscape1, label: lang === 'en' ? 'Landscaping · Annapolis' : 'Paisajismo · Annapolis' },
+              { src: JV.images.walkway,    label: lang === 'en' ? 'Walkway · Glen Burnie'   : 'Camino · Glen Burnie'   },
+            ].map((img, i) => (
+              <Reveal key={i} delay={i * 70}>
+                <div className="jv-gallery-card">
+                  <img src={img.src} alt={img.label} />
+                  <span>{img.label}</span>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* WHY US */}
       <section className="jv-section">
         <div className="jv-container">
@@ -297,33 +324,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* CALCULATOR */}
-      <section className="jv-section jv-calc-wrap">
-        <div className="jv-container">
-          <div className="jv-calc-grid">
-            <div>
-              <Reveal><div className="jv-eyebrow">{t.sections.calc.eyebrow}</div></Reveal>
-              <Reveal delay={100}>
-                <h2 className="jv-h2" dangerouslySetInnerHTML={{
-                  __html: lang === 'en'
-                    ? 'Get a <em>number</em><br/>in 30 seconds.'
-                    : 'Tu <em>número</em><br/>en 30 segundos.'
-                }}/>
-              </Reveal>
-              <Reveal delay={200}><p className="jv-sub">{t.sections.calc.sub}</p></Reveal>
-              <Reveal delay={300}>
-                <button className="jv-btn jv-btn-primary" style={{ marginTop: 36 }} onClick={scrollToForm}>
-                  {t.calc.cta}
-                  <span className="jv-btn-arrow">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-                  </span>
-                </button>
-              </Reveal>
-            </div>
-            <Reveal delay={150}><PriceCalculator lang={lang} /></Reveal>
-          </div>
-        </div>
-      </section>
 
       {/* AREA MAP */}
       <section className="jv-section jv-map-wrap" id="area">
@@ -361,8 +361,8 @@ export default function App() {
             <Reveal delay={100}>
               <h2 className="jv-h2" dangerouslySetInnerHTML={{
                 __html: lang === 'en'
-                  ? '<em>4.9 stars</em> across<br/>200+ reviews.'
-                  : '<em>4.9 estrellas</em> en<br/>200+ reseñas.'
+                  ? '<em>5 stars</em> across<br/>200+ reviews.'
+                  : '<em>5 estrellas</em> en<br/>200+ reseñas.'
               }}/>
             </Reveal>
           </div>
@@ -416,13 +416,6 @@ export default function App() {
                 </Reveal>
                 <Reveal delay={200}><p className="jv-sub">{t.sections.contact.sub}</p></Reveal>
               </div>
-              <Reveal delay={300}>
-                <a href={`https://wa.me/${JV.business.whatsapp}?text=${encodeURIComponent(lang === 'en' ? "Hi JV, I'd like a quote for…" : 'Hola JV, quisiera una cotización para…')}`}
-                  target="_blank" rel="noopener noreferrer" className="jv-quote-wa-cta">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.464 3.488"/></svg>
-                  {lang === 'en' ? 'Or WhatsApp us — fastest' : 'O por WhatsApp — más rápido'}
-                </a>
-              </Reveal>
               <div className="jv-quote-contact">
                 <div className="jv-quote-contact-item">
                   <div className="jv-quote-contact-item-icon">

@@ -66,11 +66,8 @@ export default function MultiStepForm({ lang, defaultService = '' }) {
             {services.map((s) => (
               <button key={s.id} type="button" className="jv-form-service-card"
                 data-active={data.service === s.id}
-                onClick={() => { set('service', s.id); setTimeout(() => setStep(1), 200) }}>
+                onClick={() => set('service', s.id)}>
                 <span className="jv-form-service-name">{s.name}</span>
-                <span className="jv-form-service-price">
-                  {lang === 'en' ? 'from' : 'desde'} ${s.price.min}<small>/{s.price.unit.split(' ').pop()}</small>
-                </span>
               </button>
             ))}
           </div>

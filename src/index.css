@@ -10,9 +10,9 @@
     --jv-paper-3:      #d9cdb0;
     --jv-stone:        #1f1d1a;
     --jv-stone-2:      #2d2a25;
-    --jv-ember:        #c8553d;
-    --jv-ember-2:      #de6c52;
-    --jv-ember-3:      #9a3d28;
+    --jv-ember:        #3e7d52;
+    --jv-ember-2:      #52a36a;
+    --jv-ember-3:      #2c5c3a;
     --jv-moss:         #5d5b3e;
     --jv-line:         rgba(31,29,26,0.14);
     --jv-line-2:       rgba(31,29,26,0.28);
@@ -386,6 +386,15 @@
   .jv-sticky-wa:hover { background: rgba(255,255,255,0.06); }
   .jv-sticky-quote { background: var(--jv-ember); color: var(--jv-paper); }
   .jv-sticky-quote:hover { background: var(--jv-ember-3); }
+
+  /* GALLERY */
+  .jv-gallery-wrap { background: var(--jv-paper-2); }
+  .jv-gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 767px) { .jv-gallery-grid { grid-template-columns: 1fr 1fr; gap: 10px; } }
+  .jv-gallery-card { position: relative; overflow: hidden; border-radius: 6px; aspect-ratio: 4/3; background: var(--jv-paper-3); }
+  .jv-gallery-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .jv-gallery-card:hover img { transform: scale(1.04); }
+  .jv-gallery-card span { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 14px; font-family: var(--jv-font-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--jv-paper); background: linear-gradient(to top, rgba(0,0,0,0.6), transparent); }
 
   /* FOOTER */
   .jv-footer { background: var(--jv-stone); color: var(--jv-paper); padding: 80px 0 28px; position: relative; }
