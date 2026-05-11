@@ -7,14 +7,30 @@ export default function MultiStepForm({ lang, defaultService = '' }) {
   const [step, setStep] = useState(0)
   const [data, setData] = useState({ service: defaultService, when: 'ASAP', size: '', address: '', name: '', email: '', phone: '', message: '' })
   const [done, setDone] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState(null)
 
   const set = (k, v) => setData((d) => ({ ...d, [k]: v }))
   const canNext = step === 0 ? !!data.service : step === 1 ? !!data.address : true
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault()
     if (!data.name || !data.phone) return
-    setDone(true)
+    setSending(true)
+    setError(null)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      if (!res.ok) throw new Error('send_failed')
+      setDone(true)
+    } catch {
+      setError(lang === 'en' ? 'Something went wrong. Please call us directly.' : 'Algo salió mal. Por favor llámanos directamente.')
+    } finally {
+      setSending(false)
+    }
   }
 
   if (done) {
@@ -107,6 +123,8 @@ export default function MultiStepForm({ lang, defaultService = '' }) {
         </div>
       )}
 
+      {error && <p className="jv-form-error">{error}</p>}
+
       <div className="jv-form-actions">
         {step > 0 && (
           <button type="button" className="jv-form-back" onClick={() => setStep(step - 1)}>
@@ -118,7 +136,9 @@ export default function MultiStepForm({ lang, defaultService = '' }) {
             {lang === 'en' ? 'Continue' : 'Continuar'} →
           </button>
         ) : (
-          <button type="submit" className="jv-form-submit">{t.form.submit}</button>
+          <button type="submit" className="jv-form-submit" disabled={sending}>
+            {sending ? (lang === 'en' ? 'Sending…' : 'Enviando…') : t.form.submit}
+          </button>
         )}
       </div>
     </form>
