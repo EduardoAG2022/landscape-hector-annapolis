@@ -8,6 +8,7 @@ import ServiceAreaMap from './components/ServiceAreaMap'
 import MultiStepForm from './components/MultiStepForm'
 import StickyMobileCTA from './components/StickyMobileCTA'
 import FAQ from './components/FAQ'
+import Gallery from './components/Gallery'
 import Stars from './components/Stars'
 import StatCounter from './components/StatCounter'
 
@@ -264,23 +265,7 @@ export default function App() {
               }}/>
             </Reveal>
           </div>
-          <div className="jv-gallery-grid">
-            {[
-              { src: JV.images.patio1,     label: lang === 'en' ? 'Patio · Annapolis'       : 'Patio · Annapolis'      },
-              { src: JV.images.patio2,     label: lang === 'en' ? 'Patio · Severna Park'    : 'Patio · Severna Park'   },
-              { src: JV.images.stone1,     label: lang === 'en' ? 'Stonework · Edgewater'   : 'Piedra · Edgewater'     },
-              { src: JV.images.stone2,     label: lang === 'en' ? 'Stone Wall · Bowie'      : 'Muro · Bowie'           },
-              { src: JV.images.landscape1, label: lang === 'en' ? 'Landscaping · Annapolis' : 'Paisajismo · Annapolis' },
-              { src: JV.images.walkway,    label: lang === 'en' ? 'Walkway · Glen Burnie'   : 'Camino · Glen Burnie'   },
-            ].map((img, i) => (
-              <Reveal key={i} delay={i * 70}>
-                <div className="jv-gallery-card">
-                  <img src={img.src} alt={img.label} />
-                  <span>{img.label}</span>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <Gallery lang={lang} />
         </div>
       </section>
 

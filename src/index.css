@@ -391,10 +391,34 @@
   .jv-gallery-wrap { background: var(--jv-paper-2); }
   .jv-gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   @media (max-width: 767px) { .jv-gallery-grid { grid-template-columns: 1fr 1fr; gap: 10px; } }
-  .jv-gallery-card { position: relative; overflow: hidden; border-radius: 6px; aspect-ratio: 4/3; background: var(--jv-paper-3); }
-  .jv-gallery-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-  .jv-gallery-card:hover img { transform: scale(1.04); }
-  .jv-gallery-card span { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 14px; font-family: var(--jv-font-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--jv-paper); background: linear-gradient(to top, rgba(0,0,0,0.6), transparent); }
+  .jv-gallery-card { position: relative; overflow: hidden; border-radius: 6px; aspect-ratio: 4/3; background: var(--jv-paper-3); padding: 0; border: none; cursor: pointer; display: block; width: 100%; }
+  .jv-gallery-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; display: block; }
+  .jv-gallery-card:hover img { transform: scale(1.06); }
+  .jv-gallery-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 14px; font-family: var(--jv-font-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--jv-paper); background: linear-gradient(to top, rgba(0,0,0,0.65), transparent); pointer-events: none; }
+  .jv-gallery-zoom { position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border-radius: 50%; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; color: #fff; opacity: 0; transform: scale(0.8); transition: opacity 0.2s, transform 0.2s; pointer-events: none; }
+  .jv-gallery-card:hover .jv-gallery-zoom { opacity: 1; transform: scale(1); }
+
+  /* Gallery pagination */
+  .jv-gallery-pagination { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 32px; }
+  .jv-gallery-pg-btn { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--jv-line-2); color: var(--jv-stone); transition: background 0.15s, border-color 0.15s; }
+  .jv-gallery-pg-btn:hover:not(:disabled) { background: var(--jv-accent); border-color: var(--jv-accent); color: var(--jv-paper); }
+  .jv-gallery-pg-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .jv-gallery-dots { display: flex; gap: 8px; }
+  .jv-gallery-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--jv-line-2); border: none; transition: background 0.2s, transform 0.2s; }
+  .jv-gallery-dot[data-active="true"] { background: var(--jv-accent); transform: scale(1.3); }
+
+  /* Lightbox */
+  .jv-lightbox { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.92); display: flex; align-items: center; justify-content: center; }
+  .jv-lightbox-close { position: absolute; top: 20px; right: 20px; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.12); color: #fff; display: flex; align-items: center; justify-content: center; transition: background 0.15s; z-index: 1; }
+  .jv-lightbox-close:hover { background: rgba(255,255,255,0.25); }
+  .jv-lightbox-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 50%; background: rgba(255,255,255,0.1); color: #fff; display: flex; align-items: center; justify-content: center; transition: background 0.15s; z-index: 1; }
+  .jv-lightbox-arrow:hover { background: rgba(255,255,255,0.22); }
+  .jv-lightbox-prev { left: 20px; }
+  .jv-lightbox-next { right: 20px; }
+  @media (max-width: 767px) { .jv-lightbox-prev { left: 8px; } .jv-lightbox-next { right: 8px; } .jv-lightbox-arrow { width: 40px; height: 40px; } }
+  .jv-lightbox-stage { max-width: min(90vw, 1100px); max-height: 90vh; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .jv-lightbox-img { max-width: 100%; max-height: 82vh; object-fit: contain; border-radius: 4px; }
+  .jv-lightbox-counter { font-family: var(--jv-font-mono); font-size: 12px; letter-spacing: 0.16em; color: rgba(255,255,255,0.55); }
 
   /* FOOTER */
   .jv-footer { background: var(--jv-stone); color: var(--jv-paper); padding: 80px 0 28px; position: relative; }
