@@ -6,7 +6,6 @@ import LangToggle from './components/LangToggle'
 import BeforeAfter from './components/BeforeAfter'
 import ServiceAreaMap from './components/ServiceAreaMap'
 import MultiStepForm from './components/MultiStepForm'
-import StickyMobileCTA from './components/StickyMobileCTA'
 import FAQ from './components/FAQ'
 import Gallery from './components/Gallery'
 import Stars from './components/Stars'
@@ -20,7 +19,6 @@ export default function App() {
   const t = JV.t[lang]
 
   useEffect(() => {
-    document.body.classList.add('jv-has-sticky')
     document.documentElement.lang = lang
     const onScroll = () => setScrolled(window.scrollY > 8)
     onScroll()
@@ -476,7 +474,6 @@ export default function App() {
         </div>
       </footer>
 
-      <StickyMobileCTA lang={lang} onQuote={scrollToForm} />
     </div>
   )
 }
