@@ -1,47 +1,59 @@
-/* Variation 2 — "The Stoneyard" (Editorial / Premium / Magazine) */
-const { useState, useEffect, useRef } = React;
+import { useState, useEffect, useRef } from 'react'
+import JV from './data/jv'
+import Reveal from './components/Reveal'
+import Parallax from './components/Parallax'
+import LangToggle from './components/LangToggle'
+import BeforeAfter from './components/BeforeAfter'
+import PriceCalculator from './components/PriceCalculator'
+import ServiceAreaMap from './components/ServiceAreaMap'
+import MultiStepForm from './components/MultiStepForm'
+import StickyMobileCTA from './components/StickyMobileCTA'
+import FAQ from './components/FAQ'
+import Stars from './components/Stars'
+import StatCounter from './components/StatCounter'
 
-function App() {
-  const [lang, setLang] = useState("en");
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const formRef = useRef(null);
-  const t = JV.t[lang];
+export default function App() {
+  const [lang, setLang] = useState('en')
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const formRef = useRef(null)
+  const t = JV.t[lang]
 
   useEffect(() => {
-    document.body.classList.add("jv-has-sticky");
-    document.documentElement.lang = lang;
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [lang]);
+    document.body.classList.add('jv-has-sticky')
+    document.documentElement.lang = lang
+    const onScroll = () => setScrolled(window.scrollY > 8)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [lang])
 
   const scrollToForm = () => {
-    setMenuOpen(false);
+    setMenuOpen(false)
     if (formRef.current) {
-      const top = formRef.current.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top, behavior: "smooth" });
+      const top = formRef.current.getBoundingClientRect().top + window.scrollY - 80
+      window.scrollTo({ top, behavior: 'smooth' })
     }
-  };
+  }
 
   const navLinks = [
-    { href: "#services", label: t.nav.services },
-    { href: "#work", label: t.nav.work },
-    { href: "#area", label: t.nav.area },
-    { href: "#reviews", label: t.nav.reviews },
-    { href: "#contact", label: t.nav.contact }
-  ];
+    { href: '#services', label: t.nav.services },
+    { href: '#work',     label: t.nav.work     },
+    { href: '#area',     label: t.nav.area     },
+    { href: '#reviews',  label: t.nav.reviews  },
+    { href: '#contact',  label: t.nav.contact  },
+  ]
 
   const whyIcons = [
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>,
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-  ];
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>,
+  ]
 
   return (
     <div className="jv-app">
+
       {/* NAV */}
       <header className="jv-nav" data-scrolled={scrolled}>
         <div className="jv-container jv-nav-inner">
@@ -52,11 +64,9 @@ function App() {
               <small>Annapolis · MD · Est. 2004</small>
             </span>
           </a>
-
           <nav className="jv-nav-links" aria-label="Primary">
             {navLinks.map((l) => <a key={l.href} href={l.href}>{l.label}</a>)}
           </nav>
-
           <div className="jv-nav-right">
             <LangToggle lang={lang} setLang={setLang} />
             <button className="jv-nav-cta" onClick={scrollToForm}>
@@ -72,10 +82,11 @@ function App() {
         </div>
       </header>
 
+      {/* MOBILE MENU */}
       <div className="jv-mobile-menu" data-open={menuOpen}>
         {navLinks.map((l) => <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}>{l.label}</a>)}
         <div className="jv-mobile-menu-footer">
-          <span style={{ color: "var(--jv-ember-2)" }}>{JV.business.phone1}</span>
+          <span style={{ color: 'var(--jv-ember-2)' }}>{JV.business.phone1}</span>
           <span>{JV.business.email}</span>
         </div>
       </div>
@@ -84,9 +95,15 @@ function App() {
       <section className="jv-hero">
         <div className="jv-container">
           <div className="jv-hero-meta-top">
-            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>{lang === "en" ? "Free estimate · 1 business day" : "Estimado gratis · 1 día hábil"}</span>
+            <span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              {lang === 'en' ? 'Free estimate · 1 business day' : 'Estimado gratis · 1 día hábil'}
+            </span>
             <span><em>vol. xx</em></span>
-            <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 22s-8-4.5-8-11.5A8 8 0 0 1 12 2a8 8 0 0 1 8 8.5C20 17.5 12 22 12 22z"/></svg>Annapolis · MD · 40 mi</span>
+            <span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 22s-8-4.5-8-11.5A8 8 0 0 1 12 2a8 8 0 0 1 8 8.5C20 17.5 12 22 12 22z"/></svg>
+              Annapolis · MD · 40 mi
+            </span>
           </div>
 
           <div className="jv-hero-grid">
@@ -94,20 +111,18 @@ function App() {
               <Reveal>
                 <div className="jv-hero-eyebrow-row">
                   <span>JV</span>
-                  <span style={{ flex: 1, height: 1, background: "currentColor", opacity: 0.2 }}></span>
+                  <span style={{ flex: 1, height: 1, background: 'currentColor', opacity: 0.2 }}></span>
                   <span>{t.hero.eyebrow}</span>
                 </div>
               </Reveal>
               <Reveal delay={120}>
                 <h1 className="jv-hero-title" dangerouslySetInnerHTML={{
-                  __html: lang === "en"
+                  __html: lang === 'en'
                     ? "Stone, paver, <span class='ampersand'>&amp;</span> <em>landscape</em> that outlast the mortgage."
                     : "Piedra, adoquín <span class='ampersand'>y</span> <em>paisaje</em> que duran más que la hipoteca."
                 }}/>
               </Reveal>
-              <Reveal delay={260}>
-                <p className="jv-hero-sub">{t.hero.sub}</p>
-              </Reveal>
+              <Reveal delay={260}><p className="jv-hero-sub">{t.hero.sub}</p></Reveal>
               <Reveal delay={380}>
                 <div className="jv-hero-ctas">
                   <button className="jv-btn jv-btn-primary" onClick={scrollToForm}>
@@ -116,7 +131,7 @@ function App() {
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
                     </span>
                   </button>
-                  <a className="jv-btn jv-btn-ghost" href={`https://wa.me/${JV.business.whatsapp}`} target="_blank" rel="noopener">
+                  <a className="jv-btn jv-btn-ghost" href={`https://wa.me/${JV.business.whatsapp}`} target="_blank" rel="noopener noreferrer">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.464 3.488"/></svg>
                     {t.hero.cta2}
                   </a>
@@ -124,42 +139,30 @@ function App() {
               </Reveal>
               <Reveal delay={500}>
                 <div className="jv-hero-index">
-                  <div className="jv-hero-index-item">
-                    <small>{lang === "en" ? "Year founded" : "Fundada"}</small>
-                    <strong><em>2004</em></strong>
-                  </div>
-                  <div className="jv-hero-index-item">
-                    <small>{lang === "en" ? "Reviews · ★" : "Reseñas · ★"}</small>
-                    <strong><em>4.9</em></strong>
-                  </div>
-                  <div className="jv-hero-index-item">
-                    <small>{lang === "en" ? "Projects done" : "Proyectos"}</small>
-                    <strong><em>850+</em></strong>
-                  </div>
+                  <div className="jv-hero-index-item"><small>{lang === 'en' ? 'Year founded' : 'Fundada'}</small><strong><em>2004</em></strong></div>
+                  <div className="jv-hero-index-item"><small>{lang === 'en' ? 'Reviews · ★' : 'Reseñas · ★'}</small><strong><em>4.9</em></strong></div>
+                  <div className="jv-hero-index-item"><small>{lang === 'en' ? 'Projects done' : 'Proyectos'}</small><strong><em>850+</em></strong></div>
                 </div>
               </Reveal>
             </div>
 
             <div className="jv-hero-image-wrap">
-              <Parallax speed={0.06} style={{ height: "100%" }}>
+              <Parallax speed={0.06} style={{ height: '100%' }}>
                 <img src={JV.images.hero} alt="" />
               </Parallax>
               <div className="jv-hero-stamp-circle">
                 <svg viewBox="0 0 200 200">
                   <defs>
-                    <path id="jv-circ-path" d="M 100, 100 m -78, 0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0" />
+                    <path id="jv-circ-path" d="M 100,100 m -78,0 a 78,78 0 1,1 156,0 a 78,78 0 1,1 -156,0" />
                   </defs>
                   <text>
                     <textPath href="#jv-circ-path" startOffset="0">
-                      ★ {lang === "en" ? "MHIC LICENSED · INSURED · 20+ YEARS · ANNAPOLIS MD" : "LICENCIADOS · ASEGURADOS · 20+ AÑOS · ANNAPOLIS MD"} ·
+                      ★ {lang === 'en' ? 'MHIC LICENSED · INSURED · 20+ YEARS · ANNAPOLIS MD' : 'LICENCIADOS · ASEGURADOS · 20+ AÑOS · ANNAPOLIS MD'} ·
                     </textPath>
                   </text>
                 </svg>
                 <div className="jv-hero-stamp-inner">
-                  <div>
-                    20+
-                    <small>{lang === "en" ? "years" : "años"}</small>
-                  </div>
+                  <div>20+<small>{lang === 'en' ? 'years' : 'años'}</small></div>
                 </div>
               </div>
             </div>
@@ -186,9 +189,7 @@ function App() {
       <section className="jv-stats">
         <div className="jv-container">
           <div className="jv-stats-grid">
-            {JV.stats[lang].map((s, i) => (
-              <StatCounter key={i} value={s.n} label={s.l} />
-            ))}
+            {JV.stats[lang].map((s, i) => <StatCounter key={i} value={s.n} label={s.l} />)}
           </div>
         </div>
       </section>
@@ -200,9 +201,9 @@ function App() {
             <Reveal><div className="jv-eyebrow">{t.sections.services.eyebrow}</div></Reveal>
             <Reveal delay={100}>
               <h2 className="jv-h2" dangerouslySetInnerHTML={{
-                __html: lang === "en"
-                  ? "Six trades. <em>One crew.</em><br/>No subs."
-                  : "Seis oficios. <em>Una cuadrilla.</em><br/>Sin subcontratos."
+                __html: lang === 'en'
+                  ? 'Six trades. <em>One crew.</em><br/>No subs.'
+                  : 'Seis oficios. <em>Una cuadrilla.</em><br/>Sin subcontratos.'
               }}/>
             </Reveal>
             <Reveal delay={200}><p className="jv-sub">{t.sections.services.sub}</p></Reveal>
@@ -213,11 +214,9 @@ function App() {
               <Reveal key={s.id} delay={i * 60}>
                 <div className="jv-svc-row" onClick={scrollToForm}>
                   <div className="jv-svc-num">N° 0{i + 1}</div>
-                  <div>
-                    <h3 className="jv-svc-name">{s.name}</h3>
-                  </div>
+                  <div><h3 className="jv-svc-name">{s.name}</h3></div>
                   <div className="jv-svc-desc">{s.desc}</div>
-                  <div className="jv-svc-meta" style={{ display: window.innerWidth >= 768 ? "flex" : "none" }}>
+                  <div className="jv-svc-meta">
                     <span className="jv-svc-price-num">${s.price.min}+</span>
                     <div className="jv-svc-arrow">
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M7 17L17 7M7 7h10v10"/></svg>
@@ -243,24 +242,20 @@ function App() {
             <Reveal><div className="jv-eyebrow">{t.sections.work.eyebrow}</div></Reveal>
             <Reveal delay={100}>
               <h2 className="jv-h2" dangerouslySetInnerHTML={{
-                __html: lang === "en"
-                  ? "Drag the slider.<br/><em>See the difference.</em>"
-                  : "Mueve el deslizador.<br/><em>Mira la diferencia.</em>"
+                __html: lang === 'en'
+                  ? 'Drag the slider.<br/><em>See the difference.</em>'
+                  : 'Mueve el deslizador.<br/><em>Mira la diferencia.</em>'
               }}/>
             </Reveal>
             <Reveal delay={200}><p className="jv-sub">{t.sections.work.sub}</p></Reveal>
           </div>
-
           <div className="jv-ba-list">
             {JV.images.beforeAfter.map((ba, i) => (
               <Reveal key={i} delay={i * 100}>
-                <BeforeAfter
-                  before={ba.before}
-                  after={ba.after}
-                  label={lang === "en" ? ba.labelEn : ba.labelEs}
-                  beforeLabel={lang === "en" ? "Before" : "Antes"}
-                  afterLabel={lang === "en" ? "After" : "Después"}
-                />
+                <BeforeAfter before={ba.before} after={ba.after}
+                  label={lang === 'en' ? ba.labelEn : ba.labelEs}
+                  beforeLabel={lang === 'en' ? 'Before' : 'Antes'}
+                  afterLabel={lang === 'en' ? 'After' : 'Después'} />
               </Reveal>
             ))}
           </div>
@@ -276,20 +271,14 @@ function App() {
                 <img src={JV.images.worker} alt="JV crew" />
                 <img src={JV.images.stone1} alt="" />
                 <div className="jv-why-stamp">
-                  <div>
-                    <em>20+</em>
-                    <small>{lang === "en" ? "Years" : "Años"}</small>
-                  </div>
+                  <div><em>20+</em><small>{lang === 'en' ? 'Years' : 'Años'}</small></div>
                 </div>
               </div>
             </Reveal>
             <div>
               <Reveal><div className="jv-eyebrow">{t.sections.why.eyebrow}</div></Reveal>
-              <Reveal delay={100}>
-                <h2 className="jv-h2" style={{ whiteSpace: "pre-line" }}>{t.sections.why.title}</h2>
-              </Reveal>
+              <Reveal delay={100}><h2 className="jv-h2" style={{ whiteSpace: 'pre-line' }}>{t.sections.why.title}</h2></Reveal>
               <Reveal delay={200}><p className="jv-sub">{t.sections.why.sub}</p></Reveal>
-
               <div className="jv-why-list">
                 {t.why.map((w, i) => (
                   <Reveal key={i} delay={i * 80}>
@@ -316,9 +305,9 @@ function App() {
               <Reveal><div className="jv-eyebrow">{t.sections.calc.eyebrow}</div></Reveal>
               <Reveal delay={100}>
                 <h2 className="jv-h2" dangerouslySetInnerHTML={{
-                  __html: lang === "en"
-                    ? "Get a <em>number</em><br/>in 30 seconds."
-                    : "Tu <em>número</em><br/>en 30 segundos."
+                  __html: lang === 'en'
+                    ? 'Get a <em>number</em><br/>in 30 seconds.'
+                    : 'Tu <em>número</em><br/>en 30 segundos.'
                 }}/>
               </Reveal>
               <Reveal delay={200}><p className="jv-sub">{t.sections.calc.sub}</p></Reveal>
@@ -331,9 +320,7 @@ function App() {
                 </button>
               </Reveal>
             </div>
-            <Reveal delay={150}>
-              <PriceCalculator lang={lang} />
-            </Reveal>
+            <Reveal delay={150}><PriceCalculator lang={lang} /></Reveal>
           </div>
         </div>
       </section>
@@ -346,9 +333,9 @@ function App() {
               <Reveal><div className="jv-eyebrow">{t.sections.area.eyebrow}</div></Reveal>
               <Reveal delay={100}>
                 <h2 className="jv-h2" dangerouslySetInnerHTML={{
-                  __html: lang === "en"
-                    ? "Annapolis &amp;<br/><em>40 miles</em> around."
-                    : "Annapolis y<br/><em>40 millas</em> alrededor."
+                  __html: lang === 'en'
+                    ? 'Annapolis &amp;<br/><em>40 miles</em> around.'
+                    : 'Annapolis y<br/><em>40 millas</em> alrededor.'
                 }}/>
               </Reveal>
               <Reveal delay={200}><p className="jv-sub">{t.sections.area.sub}</p></Reveal>
@@ -361,9 +348,7 @@ function App() {
                 ))}
               </div>
             </div>
-            <Reveal delay={150}>
-              <ServiceAreaMap lang={lang} />
-            </Reveal>
+            <Reveal delay={150}><ServiceAreaMap lang={lang} /></Reveal>
           </div>
         </div>
       </section>
@@ -375,9 +360,9 @@ function App() {
             <Reveal><div className="jv-eyebrow">{t.sections.reviews.eyebrow}</div></Reveal>
             <Reveal delay={100}>
               <h2 className="jv-h2" dangerouslySetInnerHTML={{
-                __html: lang === "en"
-                  ? "<em>4.9 stars</em> across<br/>200+ reviews."
-                  : "<em>4.9 estrellas</em> en<br/>200+ reseñas."
+                __html: lang === 'en'
+                  ? '<em>4.9 stars</em> across<br/>200+ reviews.'
+                  : '<em>4.9 estrellas</em> en<br/>200+ reseñas.'
               }}/>
             </Reveal>
           </div>
@@ -389,7 +374,7 @@ function App() {
                     <Stars n={r.stars} size={16} />
                     <span className="jv-review-source">{r.source}</span>
                   </div>
-                  <p className="jv-review-text">{lang === "en" ? r.en : r.es}</p>
+                  <p className="jv-review-text">{lang === 'en' ? r.en : r.es}</p>
                   <div className="jv-review-attr">
                     <div className="jv-review-avatar">{r.name.charAt(0)}</div>
                     <div>
@@ -405,9 +390,9 @@ function App() {
       </section>
 
       {/* FAQ */}
-      <section className="jv-section" style={{ background: "var(--jv-paper-2)" }}>
+      <section className="jv-section" style={{ background: 'var(--jv-paper-2)' }}>
         <div className="jv-container">
-          <div className="jv-section-head" style={{ maxWidth: "100%" }}>
+          <div className="jv-section-head" style={{ maxWidth: '100%' }}>
             <Reveal><div className="jv-eyebrow">{t.sections.faq.eyebrow}</div></Reveal>
             <Reveal delay={100}><h2 className="jv-h2">{t.sections.faq.title}</h2></Reveal>
           </div>
@@ -424,28 +409,27 @@ function App() {
                 <Reveal><div className="jv-eyebrow">{t.sections.contact.eyebrow}</div></Reveal>
                 <Reveal delay={100}>
                   <h2 className="jv-h2" dangerouslySetInnerHTML={{
-                    __html: lang === "en"
-                      ? "Tell us about<br/><em>your project.</em>"
-                      : "Cuéntanos de<br/><em>tu proyecto.</em>"
+                    __html: lang === 'en'
+                      ? 'Tell us about<br/><em>your project.</em>'
+                      : 'Cuéntanos de<br/><em>tu proyecto.</em>'
                   }}/>
                 </Reveal>
                 <Reveal delay={200}><p className="jv-sub">{t.sections.contact.sub}</p></Reveal>
               </div>
               <Reveal delay={300}>
-                <a href={`https://wa.me/${JV.business.whatsapp}?text=${encodeURIComponent(lang === "en" ? "Hi JV, I'd like a quote for…" : "Hola JV, quisiera una cotización para…")}`}
-                  target="_blank" rel="noopener" className="jv-quote-wa-cta">
+                <a href={`https://wa.me/${JV.business.whatsapp}?text=${encodeURIComponent(lang === 'en' ? "Hi JV, I'd like a quote for…" : 'Hola JV, quisiera una cotización para…')}`}
+                  target="_blank" rel="noopener noreferrer" className="jv-quote-wa-cta">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.464 3.488"/></svg>
-                  {lang === "en" ? "Or WhatsApp us — fastest" : "O por WhatsApp — más rápido"}
+                  {lang === 'en' ? 'Or WhatsApp us — fastest' : 'O por WhatsApp — más rápido'}
                 </a>
               </Reveal>
-
               <div className="jv-quote-contact">
                 <div className="jv-quote-contact-item">
                   <div className="jv-quote-contact-item-icon">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                   </div>
                   <div className="jv-quote-contact-item-text">
-                    <small>{lang === "en" ? "Call" : "Llama"}</small>
+                    <small>{lang === 'en' ? 'Call' : 'Llama'}</small>
                     <strong>{JV.business.phone1}</strong>
                     <strong style={{ fontSize: 16, opacity: 0.7 }}>{JV.business.phone2}</strong>
                   </div>
@@ -464,16 +448,13 @@ function App() {
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                   </div>
                   <div className="jv-quote-contact-item-text">
-                    <small>{lang === "en" ? "Hours" : "Horario"}</small>
+                    <small>{lang === 'en' ? 'Hours' : 'Horario'}</small>
                     <strong style={{ fontSize: 16 }}>{JV.business.hours[lang].weekday}<br/>{JV.business.hours[lang].weekend}</strong>
                   </div>
                 </div>
               </div>
             </div>
-
-            <Reveal delay={150}>
-              <MultiStepForm lang={lang} />
-            </Reveal>
+            <Reveal delay={150}><MultiStepForm lang={lang} /></Reveal>
           </div>
         </div>
       </section>
@@ -483,11 +464,11 @@ function App() {
         <div className="jv-container">
           <div className="jv-footer-grid">
             <div className="jv-footer-brand">
-              <a href="#" className="jv-logo" style={{ color: "var(--jv-paper)" }}>
-                <span className="jv-logo-mark" style={{ background: "var(--jv-paper)", color: "var(--jv-stone)" }}>jv</span>
+              <a href="#" className="jv-logo" style={{ color: 'var(--jv-paper)' }}>
+                <span className="jv-logo-mark" style={{ background: 'var(--jv-paper)', color: 'var(--jv-stone)' }}>jv</span>
                 <span className="jv-logo-text">
                   <span>JV Patios &amp; Stonework</span>
-                  <small style={{ color: "var(--jv-on-dark-mute)" }}>Annapolis · MD · Est. 2004</small>
+                  <small style={{ color: 'var(--jv-on-dark-mute)' }}>Annapolis · MD · Est. 2004</small>
                 </span>
               </a>
               <div className="jv-footer-tagline">{t.footer.tagline}</div>
@@ -517,14 +498,12 @@ function App() {
           </div>
           <div className="jv-footer-bottom">
             <span>{t.footer.rights}</span>
-            <span>{lang === "en" ? "MHIC #142857" : "MHIC #142857"}</span>
+            <span>MHIC #142857</span>
           </div>
         </div>
       </footer>
 
       <StickyMobileCTA lang={lang} onQuote={scrollToForm} />
     </div>
-  );
+  )
 }
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);

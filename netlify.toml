@@ -1,13 +1,8 @@
 [build]
-  publish = "."
-  command = ""
+  publish = "dist"
+  command = "npm run build"
 
-[[headers]]
-  for = "/v2/app.jsx"
-  [headers.values]
-    Content-Type = "text/javascript; charset=utf-8"
-
-[[headers]]
-  for = "/shared/components.jsx"
-  [headers.values]
-    Content-Type = "text/javascript; charset=utf-8"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
