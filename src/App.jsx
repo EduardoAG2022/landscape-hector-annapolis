@@ -84,7 +84,7 @@ export default function App() {
       <div className="jv-mobile-menu" data-open={menuOpen}>
         {navLinks.map((l) => <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}>{l.label}</a>)}
         <div className="jv-mobile-menu-footer">
-          <span style={{ color: 'var(--jv-ember-2)' }}>{JV.business.phone1}</span>
+          <span style={{ color: 'var(--jv-lime)' }}>{JV.business.phone1}</span>
           <span>{JV.business.email}</span>
         </div>
       </div>
@@ -368,7 +368,7 @@ export default function App() {
       </section>
 
       {/* FAQ */}
-      <section className="jv-section" style={{ background: 'var(--jv-paper-2)' }}>
+      <section className="jv-section" style={{ background: 'var(--jv-bg-2)' }}>
         <div className="jv-container">
           <div className="jv-section-head" style={{ maxWidth: '100%' }}>
             <Reveal><div className="jv-eyebrow">{t.sections.faq.eyebrow}</div></Reveal>
@@ -435,8 +435,8 @@ export default function App() {
         <div className="jv-container">
           <div className="jv-footer-grid">
             <div className="jv-footer-brand">
-              <a href="#" className="jv-logo" style={{ color: 'var(--jv-paper)' }}>
-                <span className="jv-logo-mark" style={{ background: 'var(--jv-paper)', color: 'var(--jv-stone)' }}>jv</span>
+              <a href="#" className="jv-logo" style={{ color: '#fff' }}>
+                <span className="jv-logo-mark" style={{ background: '#fff', color: 'var(--jv-forest)' }}>jv</span>
                 <span className="jv-logo-text">
                   <span>JV Patios &amp; Stonework</span>
                   <small style={{ color: 'var(--jv-on-dark-mute)' }}>Annapolis · MD · Est. 2004</small>
