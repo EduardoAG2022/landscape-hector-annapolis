@@ -18,17 +18,22 @@ export default function MultiStepForm({ lang, defaultService = '' }) {
     if (!data.name || !data.phone) return
     setSending(true)
     setError(null)
+
+    // Save lead data for the thanks page
+    sessionStorage.setItem('jv_lead', JSON.stringify({ ...data, lang }))
+
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-      if (!res.ok) throw new Error('send_failed')
-      setDone(true)
+      // TODO: enable once Resend env vars are configured in Vercel
+      // const res = await fetch('/api/contact', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(data),
+      // })
+      // if (!res.ok) throw new Error('send_failed')
+
+      window.location.href = '/thanks'
     } catch {
       setError(lang === 'en' ? 'Something went wrong. Please call us directly.' : 'Algo salió mal. Por favor llámanos directamente.')
-    } finally {
       setSending(false)
     }
   }
