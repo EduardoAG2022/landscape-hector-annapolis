@@ -23,13 +23,12 @@ export default function MultiStepForm({ lang, defaultService = '' }) {
     sessionStorage.setItem('jv_lead', JSON.stringify({ ...data, lang }))
 
     try {
-      // TODO: enable once Resend env vars are configured in Vercel
-      // const res = await fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(data),
-      // })
-      // if (!res.ok) throw new Error('send_failed')
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+      if (!res.ok) throw new Error('send_failed')
 
       window.location.href = '/thanks'
     } catch {
