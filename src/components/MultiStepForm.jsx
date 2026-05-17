@@ -19,9 +19,6 @@ export default function MultiStepForm({ lang, defaultService = '' }) {
     setSending(true)
     setError(null)
 
-    // Save lead data for the thanks page
-    sessionStorage.setItem('jv_lead', JSON.stringify({ ...data, lang }))
-
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
@@ -30,6 +27,8 @@ export default function MultiStepForm({ lang, defaultService = '' }) {
       })
       if (!res.ok) throw new Error('send_failed')
 
+      // Only save and redirect after confirmed API success
+      sessionStorage.setItem('jv_lead', JSON.stringify({ ...data, lang }))
       window.location.href = '/thanks'
     } catch {
       setError(lang === 'en' ? 'Something went wrong. Please call us directly.' : 'Algo salió mal. Por favor llámanos directamente.')
