@@ -1,59 +1,59 @@
-import { Resend } from 'resend'
+import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-const BUSINESS_EMAIL = process.env.BUSINESS_EMAIL || 'jv.patiostonework@gmail.com'
-const FROM_EMAIL = process.env.FROM_EMAIL || 'onboarding@resend.dev'
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' })
-  }
-
-  const { name, phone, email, service, when, address, size, message } = req.body
-
-  if (!name || !phone) {
-    return res.status(400).json({ error: 'Name and phone are required' })
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
   try {
-    // Email al negocio con los datos del lead
+    const { nombre, email, telefono, direccion, tamano, categoria, mensaje, notas } = req.body;
+
+    // Email al usuario
     await resend.emails.send({
-      from: FROM_EMAIL,
-      to: BUSINESS_EMAIL,
-      subject: `New Quote Request — ${service || 'General'} · ${name}`,
+      from: process.env.FROM_EMAIL,
+      to: email,
+      subject: 'Hemos recibido tu solicitud - JV Patios and Stone Work',
       html: `
-        <h2>New Quote Request</h2>
-        <table cellpadding="8" style="border-collapse:collapse;width:100%">
-          <tr><td><strong>Name</strong></td><td>${name}</td></tr>
-          <tr><td><strong>Phone</strong></td><td>${phone}</td></tr>
-          <tr><td><strong>Email</strong></td><td>${email || '—'}</td></tr>
-          <tr><td><strong>Service</strong></td><td>${service || '—'}</td></tr>
-          <tr><td><strong>When</strong></td><td>${when || '—'}</td></tr>
-          <tr><td><strong>Address</strong></td><td>${address || '—'}</td></tr>
-          <tr><td><strong>Size</strong></td><td>${size || '—'}</td></tr>
-          <tr><td><strong>Message</strong></td><td>${message || '—'}</td></tr>
-        </table>
+        <h2>¡Hola ${nombre}!</h2>
+        <p>Gracias por contactarnos. Hemos recibido tu solicitud.</p>
+        <p><strong>Detalles:</strong></p>
+        <ul>
+          <li>Nombre: ${nombre}</li>
+          <li>Email: ${email}</li>
+          <li>Teléfono: ${telefono}</li>
+          <li>Dirección: ${direccion}</li>
+          <li>Tamaño: ${tamano}</li>
+          <li>Categoría: ${categoria}</li>
+          <li>Mensaje: ${mensaje}</li>
+        </ul>
+        <p>Saludos,<br>JV Patios & Stone Work</p>
       `,
-    })
+    });
 
-    // Email de confirmación al prospecto (solo si dejó email)
-    if (email) {
-      await resend.emails.send({
-        from: FROM_EMAIL,
-        to: email,
-        subject: 'We received your quote request — JV Patios & Stonework',
-        html: `
-          <p>Hi ${name},</p>
-          <p>Thanks for reaching out to <strong>JV Patios & Stonework LLC</strong>. We received your request and will contact you within 24 hours.</p>
-          <p>If you need to reach us sooner, call <strong>(443) 758-5158</strong> or WhatsApp us.</p>
-          <p>— The JV Patios Team</p>
-        `,
-      })
-    }
+    // Email al negocio
+    await resend.emails.send({
+      from: process.env.FROM_EMAIL,
+      to: process.env.BUSINESS_EMAIL,
+      subject: `NUEVO LEAD - ${nombre}`,
+      html: `
+        <h2>Nuevo Lead Recibido</h2>
+        <p><strong>Nombre:</strong> ${nombre}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Teléfono:</strong> ${telefono}</p>
+        <p><strong>Dirección:</strong> ${direccion}</p>
+        <p><strong>Tamaño:</strong> ${tamano}</p>
+        <p><strong>Categoría:</strong> ${categoria}</p>
+        <p><strong>Mensaje:</strong> ${mensaje}</p>
+        <p><strong>Notas:</strong> ${notas || 'N/A'}</p>
+      `,
+    });
 
-    return res.status(200).json({ ok: true })
-  } catch (err) {
-    console.error('Resend error:', err)
-    return res.status(500).json({ error: 'Failed to send email' })
+    return res.status(200).json({ success: true, message: 'Emails enviados correctamente' });
+
+  } catch (error) {
+    console.error('Error enviando email:', error);
+    return res.status(500).json({ error: error.message });
   }
 }
