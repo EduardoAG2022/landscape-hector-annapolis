@@ -163,7 +163,7 @@ JV.t = {
     form: {
       step1: "1 · What are you building?", step2: "2 · Where & how big?", step3: "3 · How do we reach you?",
       f_name: "Full name", f_email: "Email", f_phone: "Phone", f_address: "Project address (city is fine)", f_size: "Approx. size (sq ft)", f_msg: "Anything we should know? (optional)", f_when: "When do you want to start?",
-      when: ["ASAP", "Within 30 days", "Within 90 days", "Just exploring"],
+      when: ["ASAP", "Within 30 days"],
       submit: "Send my quote request",
       success: "Got it. We'll call within 1 business day. Thanks!",
       privacy: "We never sell your info. Used only to quote your project.",
@@ -203,7 +203,7 @@ JV.t = {
     form: {
       step1: "1 · ¿Qué vas a construir?", step2: "2 · ¿Dónde y qué tamaño?", step3: "3 · ¿Cómo te contactamos?",
       f_name: "Nombre completo", f_email: "Email", f_phone: "Teléfono", f_address: "Dirección del proyecto (ciudad está bien)", f_size: "Tamaño aprox. (pie²)", f_msg: "¿Algo que debamos saber? (opcional)", f_when: "¿Cuándo quieres empezar?",
-      when: ["Lo antes posible", "En 30 días", "En 90 días", "Solo explorando"],
+      when: ["Lo antes posible", "En 30 días"],
       submit: "Enviar mi solicitud",
       success: "¡Recibido! Te llamamos en un día hábil. ¡Gracias!",
       privacy: "Nunca vendemos tu info. Solo para cotizar tu proyecto.",

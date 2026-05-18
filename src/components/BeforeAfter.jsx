@@ -53,7 +53,6 @@ export default function BeforeAfter({ before, after, label, beforeLabel = 'Befor
           </svg>
         </div>
       </div>
-      {label && <div className="jv-ba-caption">{label}</div>}
     </div>
   )
 }
