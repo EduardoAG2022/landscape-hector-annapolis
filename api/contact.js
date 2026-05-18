@@ -8,45 +8,48 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { nombre, email, telefono, direccion, tamano, categoria, mensaje, notas } = req.body;
+    const { name, email, phone, address, size, service, message, when } = req.body;
 
-    // Email al usuario
-    await resend.emails.send({
-      from: process.env.FROM_EMAIL,
-      to: email,
-      subject: 'Hemos recibido tu solicitud - JV Patios and Stone Work',
-      html: `
-        <h2>¡Hola ${nombre}!</h2>
-        <p>Gracias por contactarnos. Hemos recibido tu solicitud.</p>
-        <p><strong>Detalles:</strong></p>
-        <ul>
-          <li>Nombre: ${nombre}</li>
-          <li>Email: ${email}</li>
-          <li>Teléfono: ${telefono}</li>
-          <li>Dirección: ${direccion}</li>
-          <li>Tamaño: ${tamano}</li>
-          <li>Categoría: ${categoria}</li>
-          <li>Mensaje: ${mensaje}</li>
-        </ul>
-        <p>Saludos,<br>JV Patios & Stone Work</p>
-      `,
-    });
+    // Email al usuario (solo si dejó email)
+    if (email) {
+      await resend.emails.send({
+        from: process.env.FROM_EMAIL,
+        to: email,
+        subject: 'Hemos recibido tu solicitud - JV Patios and Stone Work',
+        html: `
+          <h2>¡Hola ${name}!</h2>
+          <p>Gracias por contactarnos. Hemos recibido tu solicitud y te contactaremos en menos de 1 día hábil.</p>
+          <p><strong>Resumen de tu solicitud:</strong></p>
+          <ul>
+            <li>Nombre: ${name}</li>
+            <li>Teléfono: ${phone}</li>
+            <li>Email: ${email}</li>
+            <li>Servicio: ${service || '—'}</li>
+            <li>Plazo: ${when || '—'}</li>
+            <li>Dirección: ${address || '—'}</li>
+            <li>Tamaño: ${size || '—'}</li>
+            <li>Mensaje: ${message || '—'}</li>
+          </ul>
+          <p>Saludos,<br>JV Patios &amp; Stone Work</p>
+        `,
+      });
+    }
 
     // Email al negocio
     await resend.emails.send({
       from: process.env.FROM_EMAIL,
       to: process.env.BUSINESS_EMAIL,
-      subject: `NUEVO LEAD - ${nombre}`,
+      subject: `NUEVO LEAD - ${name} · ${service || 'General'}`,
       html: `
         <h2>Nuevo Lead Recibido</h2>
-        <p><strong>Nombre:</strong> ${nombre}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Teléfono:</strong> ${telefono}</p>
-        <p><strong>Dirección:</strong> ${direccion}</p>
-        <p><strong>Tamaño:</strong> ${tamano}</p>
-        <p><strong>Categoría:</strong> ${categoria}</p>
-        <p><strong>Mensaje:</strong> ${mensaje}</p>
-        <p><strong>Notas:</strong> ${notas || 'N/A'}</p>
+        <p><strong>Nombre:</strong> ${name}</p>
+        <p><strong>Teléfono:</strong> ${phone}</p>
+        <p><strong>Email:</strong> ${email || '—'}</p>
+        <p><strong>Servicio:</strong> ${service || '—'}</p>
+        <p><strong>Plazo:</strong> ${when || '—'}</p>
+        <p><strong>Dirección:</strong> ${address || '—'}</p>
+        <p><strong>Tamaño:</strong> ${size || '—'}</p>
+        <p><strong>Mensaje:</strong> ${message || '—'}</p>
       `,
     });
 
