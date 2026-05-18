@@ -35,10 +35,11 @@ export default async function handler(req, res) {
       });
     }
 
-    // Email al negocio
+    // Email al negocio (+ vendedor si está configurado)
+    const leadRecipients = [process.env.BUSINESS_EMAIL, process.env.SALES_EMAIL].filter(Boolean)
     await resend.emails.send({
       from: process.env.FROM_EMAIL,
-      to: process.env.BUSINESS_EMAIL,
+      to: leadRecipients,
       subject: `NUEVO LEAD - ${name} · ${service || 'General'}`,
       html: `
         <h2>Nuevo Lead Recibido</h2>
